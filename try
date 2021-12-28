@@ -13,6 +13,13 @@ class Myapp:
         self.bt2 = tk.Button(self.f1, text="search a movie", font="Arial 20", command=self.for_search)
         self.bt2.grid(row=2, column=1)
 
+    def Return(self):
+        for widget in self.f1.winfo_children():
+            widget.destroy()
+        self.bt1 = tk.Button(self.f1, text="favorite movies", font="Arial 20", command=self.favorite_movies)
+        self.bt1.grid(row=2, column=0)
+        self.bt2 = tk.Button(self.f1, text="search a movie", font="Arial 20", command=self.for_search)
+        self.bt2.grid(row=2, column=1)
     def for_search(self):
         for widget in self.f1.winfo_children():
             widget.destroy()
@@ -20,8 +27,12 @@ class Myapp:
         self.e.grid()
         self.b = tk.Button(self.f1, text="search", font="Arial 20", command=self.search)
         self.b.grid()
+        self.b2 = tk.Button(self.f1, text="return", command=self.Return)
+        self.b2.grid()
 
     def search(self):
+        self.b2 = tk.Button(self.f1, text="return", command=self.Return)
+        self.b2.grid()
         self.title = self.e.get()
         if self.title:
             url = f"http://www.omdbapi.com/?t={self.title}&apikey=2692ec2"
@@ -40,6 +51,8 @@ class Myapp:
             self.l1.grid()
             self.b1 = tk.Button(self.f1, text=" + ", command=self.add)
             self.b1.grid()
+            self.b2 = tk.Button(self.f1, text="return", command=self.Return)
+            self.b2.grid()
 
     def favorite_movies(self):
         conn = sq.connect("members.db")
@@ -58,6 +71,8 @@ class Myapp:
             cnt += 1
         conn.commit()
         conn.close()
+        self.b2 = tk.Button(self.f1, text="return", command=self.Return)
+        self.b2.grid()
 
     def overview(self, title=""):
         print("geia", title)
@@ -114,7 +129,7 @@ class Login():
         c.execute("SELECT * FROM members")
         items = c.fetchall()
         print(items)
-        cnt=0
+        cnt = 0
         for item in items:
             print(item)
             cnt += 1
