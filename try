@@ -3,7 +3,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import sqlite3 as sq
 import os
-
+print('kollhsa cov re mlkes')
 
 class Myapp:
     def __init__(self, root):
