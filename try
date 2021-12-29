@@ -2,6 +2,7 @@ import requests as r
 import tkinter as tk
 from PIL import ImageTk, Image
 import sqlite3 as sq
+import os
 
 
 class Myapp:
@@ -12,7 +13,8 @@ class Myapp:
         self.bt1.grid(row=2, column=0)
         self.bt2 = tk.Button(self.f1, text="search a movie", font="Arial 20", command=self.for_search)
         self.bt2.grid(row=2, column=1)
-
+        self.buttonquit1 = tk.Button(self.f1, text="Exit", command=root.destroy)
+        self.buttonquit1.grid()
     def Return(self):
         for widget in self.f1.winfo_children():
             widget.destroy()
@@ -85,10 +87,10 @@ class Myapp:
             info.append(item)
             print(info)
 
-        img = ImageTk.PhotoImage(Image.open(str(title) + ".jpg"))
+        self.img1 = ImageTk.PhotoImage(Image.open(str(title) + ".jpg"))
         l = tk.Label(self.f1, text=(info[1] + info[2]))
         l.grid()
-        l1 = tk.Label(self.f1, image=img)
+        l1 = tk.Label(self.f1, image=self.img1)
         l1.grid()
         conn.commit()
         conn.close()
@@ -105,7 +107,7 @@ class Myapp:
             poster DATATYPE blob
             )""")
         c.execute("SELECT * FROM movies1 WHERE movie_title =? ", (self.title,))
-        items = c.fetchone()
+        items = c.fetchall()
         lst = []
         for item in items:
             lst.append(item)
@@ -177,9 +179,9 @@ class Login():
             self.root.mainloop()
 
     def run(self):
-
         self.root = tk.Tk()
         self.root.title(" My films ")
+        self.root.iconbitmap(r"cin.ico")
         self.root.geometry("700x450")
         self.f1 = tk.Frame(self.root)
         self.f1.grid()
@@ -195,6 +197,8 @@ class Login():
         self.mybutton.grid(row=2, column=0)
         self.button2 = tk.Button(self.f1, text="Register", command=self.for_register)
         self.button2.grid(row=2, column=1)
+        self.buttonquit = tk.Button(self.f1, text="Close", command=self.root.quit)
+        self.buttonquit.grid()
         self.root.mainloop()
 
 
