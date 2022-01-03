@@ -2,7 +2,7 @@ import requests as r
 import tkinter as tk
 from PIL import ImageTk, Image
 import sqlite3 as sq
-import os
+from tkinter import messagebox
 
 
 class Myapp:
@@ -15,6 +15,7 @@ class Myapp:
         self.bt2.grid(row=2, column=1)
         self.buttonquit1 = tk.Button(self.f1, text="Exit", command=root.destroy)
         self.buttonquit1.grid()
+
     def Return(self):
         for widget in self.f1.winfo_children():
             widget.destroy()
@@ -22,6 +23,7 @@ class Myapp:
         self.bt1.grid(row=2, column=0)
         self.bt2 = tk.Button(self.f1, text="search a movie", font="Arial 20", command=self.for_search)
         self.bt2.grid(row=2, column=1)
+
     def for_search(self):
         for widget in self.f1.winfo_children():
             widget.destroy()
@@ -179,27 +181,44 @@ class Login():
             self.root.mainloop()
 
     def run(self):
+
         self.root = tk.Tk()
-        self.root.title(" My films ")
-        self.root.iconbitmap(r"cin.ico")
-        self.root.geometry("700x450")
-        self.f1 = tk.Frame(self.root)
-        self.f1.grid()
-        self.label1 = tk.Label(self.f1, text="username: ")
-        self.label2 = tk.Label(self.f1, text="password: ")
-        self.label1.grid(row=0, column=0)
-        self.label2.grid(row=1, column=0)
-        self.e1 = tk.Entry(self.f1)
-        self.e2 = tk.Entry(self.f1, show="*")
-        self.e1.grid(row=0, column=1)
-        self.e2.grid(row=1, column=1)
-        self.mybutton = tk.Button(self.f1, text="Login", command=self.my_click)
-        self.mybutton.grid(row=2, column=0)
-        self.button2 = tk.Button(self.f1, text="Register", command=self.for_register)
-        self.button2.grid(row=2, column=1)
-        self.buttonquit = tk.Button(self.f1, text="Close", command=self.root.quit)
-        self.buttonquit.grid()
+        self.root.title('My films')
+        self.root.geometry('1199x600+100+50')
+
+
+        self.bg = ImageTk.PhotoImage(file='breaking bad.jpg.')
+        self.bg_image = tk.Label(self.root, image=self.bg).place(x=0, y=0, relwidth=1, relheight=1)
+
+        self.f1 = tk.Frame(self.root, bg='black')
+        self.f1.place(x=150, y=150, height=340, width=500)
+
+        title = tk.Label(self.f1, text='Login to MyFILMS', font=('Impact', 35, 'bold'), fg='white',
+                      bg='black').place(
+            x=90, y=30)
+        desc = tk.Label(self.f1, text='Users login area', font=('Impact', 15, 'normal'), fg='white',
+                     bg='black').place(
+            x=90, y=100)
+
+        lbl_user = tk.Label(self.f1, text='Username', font=('Impact', 15, 'normal'), fg='white',
+                         bg='black').place(
+            x=90, y=140)
+        self.e1 = tk.Entry(self.f1, font=('times new roman', 15), bg='white')
+        self.e1.place(x=90, y=170, width=350, height=35)
+
+        lbl_pass = tk.Label(self.f1, text='Password', font=('Impact', 15, 'normal'), fg='white',
+                         bg='black').place(
+            x=90, y=210)
+        self.e2 = tk.Entry(self.f1, font=('times new roman', 15), bg='white')
+        self.e2.place(x=90, y=240, width=350, height=35)
+
+        forget_btn = tk.Button(self.f1, text='New?Click for registration', command=self.for_register, bg='black',
+                            fg='red', bd=0,
+                            font=('Impact', 12)).place(x=90, y=280)
+        Login_btn = tk.Button(self.root, text='Login',command=self.my_click, fg='white', bg='black',
+                           font=('Impact', 20, 'bold')).place(x=300, y=470, width=180, height=40)
         self.root.mainloop()
+
 
 
 if __name__ == "__main__":
