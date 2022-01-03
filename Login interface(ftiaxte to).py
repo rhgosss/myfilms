@@ -16,7 +16,7 @@ class Login:
         Frame_login=Frame(self.root, bg='black')
         Frame_login.place(x=150, y=150, height=340, width=500)
 
-        title=Label(Frame_login,text='Welcome to MyFILMS', font=('Impact',35, 'bold'), fg='white',bg='black').place(x=90,y=30)
+        title=Label(Frame_login,text='Login to MyFILMS', font=('Impact',35, 'bold'), fg='white',bg='black').place(x=90,y=30)
         desc=Label(Frame_login, text='Users login area',font=('Impact',15,'normal'),fg='white',bg='black').place(x=90,y=100)
 
         lbl_user=Label(Frame_login, text='Username', font=('Impact',15,'normal'),fg='white',bg='black').place(x=90 , y=140)
