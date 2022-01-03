@@ -1,3 +1,5 @@
+#https://www.youtube.com/watch?v=DUNn0YAIh1U&t=437s  o indos 
+
 from tkinter import*
 from PIL import ImageTk
 from tkinter import messagebox
