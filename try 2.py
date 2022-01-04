@@ -16,15 +16,21 @@ class Myapp:
         self.buttonquit1 = tk.Button(self.f1, text="Exit", command=root.destroy)
         self.buttonquit1.grid()
 
+
     def Return(self):
         for widget in self.f1.winfo_children():
             widget.destroy()
+        for widget in self.f2.winfo_children():
+            widget.destroy()
+        self.f2.destroy()
         self.bt1 = tk.Button(self.f1, text="favorite movies", font="Arial 20", command=self.favorite_movies)
         self.bt1.grid(row=2, column=0)
         self.bt2 = tk.Button(self.f1, text="search a movie", font="Arial 20", command=self.for_search)
         self.bt2.grid(row=2, column=1)
 
     def for_search(self):
+        self.f2 = tk.Frame()
+        self.f2.grid()
         for widget in self.f1.winfo_children():
             widget.destroy()
         self.e = tk.Entry(self.f1, font="Arial 24")
@@ -35,8 +41,9 @@ class Myapp:
         self.b2.grid()
 
     def search(self):
-        self.b2 = tk.Button(self.f1, text="return", command=self.Return)
-        self.b2.grid()
+
+        for widget in self.f2.winfo_children():
+            widget.destroy()
         self.title = self.e.get()
         if self.title:
             url = f"http://www.omdbapi.com/?t={self.title}&apikey=2692ec2"
@@ -49,15 +56,13 @@ class Myapp:
                 f.write(self.r2.content)
             self.img = ImageTk.PhotoImage(Image.open(str(self.title) + ".jpg"))
             print(self.img)
-            self.l = tk.Label(self.f1, text=(self.r1["Year"] + self.r1["Actors"]))
+            self.l = tk.Label(self.f2, text=(self.r1["Year"] + self.r1["Actors"]))
             self.l.grid()
-            self.l1 = tk.Label(self.f1, image=self.img)
+            self.l1 = tk.Label(self.f2, image=self.img)
             self.l1.grid()
-            self.b1 = tk.Button(self.f1, text=" + ", command=self.add)
+            self.b1 = tk.Button(self.f2, text=" + ", command=self.add)
             self.b1.grid()
-            self.b2 = tk.Button(self.f1, text="return", command=self.Return)
-            self.b2.grid()
-
+            
     def favorite_movies(self):
         conn = sq.connect("members.db")
         c = conn.cursor()
@@ -151,16 +156,22 @@ class Login():
     def for_register(self):
         for widget in self.f1.winfo_children():
             widget.destroy()
-        self.l = tk.Label(self.f1, text="username: ")
-        self.l2 = tk.Label(self.f1, text="password: ")
-        self.l.grid(row=0, column=0)
-        self.l2.grid(row=1, column=0)
-        self.entry = tk.Entry(self.f1)
-        self.entry2 = tk.Entry(self.f1, show="*")
-        self.entry.grid(row=0, column=1)
-        self.entry2.grid(row=1, column=1)
-        self.b = tk.Button(self.f1, text="Register", command=self.register)
-        self.b.grid()
+        title = tk.Label(self.f1, text='Register to MyFILMS', font=('Impact', 35, 'bold'), fg='white',
+                         bg='black').place(
+            x=90, y=30)
+        self.l = tk.Label(self.f1, text='Username', font=('Impact', 15, 'normal'), fg='white',
+                         bg='black').place(
+            x=90, y=140)
+        self.l2 = tk.Label(self.f1, text='Password', font=('Impact', 15, 'normal'), fg='white',
+                         bg='black').place(
+            x=90, y=210)
+        self.entry = tk.Entry(self.f1, font=('times new roman', 15), bg='white')
+        self.entry2 = tk.Entry(self.f1, font=('times new roman', 15), bg='white',show="*")
+        self.entry.place(x=90, y=170, width=350, height=35)
+        self.entry2.place(x=90, y=240, width=350, height=35)
+        self.b = tk.Button(self.f1, text='Register',command=self.register, fg='white', bg='black',
+                           font=('Impact', 20, 'bold')).place(x=90, y=320, width=180, height=40)
+
 
     def register(self):
         conn = sq.connect("members.db")
@@ -187,11 +198,11 @@ class Login():
         self.root.geometry('1199x600+100+50')
 
 
-        self.bg = ImageTk.PhotoImage(file='breaking bad.jpg.')
+        self.bg = ImageTk.PhotoImage(file='wallpaper1.jpg')
         self.bg_image = tk.Label(self.root, image=self.bg).place(x=0, y=0, relwidth=1, relheight=1)
 
         self.f1 = tk.Frame(self.root, bg='black')
-        self.f1.place(x=150, y=150, height=340, width=500)
+        self.f1.place(x=150, y=150, height=360, width=500)
 
         title = tk.Label(self.f1, text='Login to MyFILMS', font=('Impact', 35, 'bold'), fg='white',
                       bg='black').place(
@@ -209,14 +220,14 @@ class Login():
         lbl_pass = tk.Label(self.f1, text='Password', font=('Impact', 15, 'normal'), fg='white',
                          bg='black').place(
             x=90, y=210)
-        self.e2 = tk.Entry(self.f1, font=('times new roman', 15), bg='white')
+        self.e2 = tk.Entry(self.f1, font=('times new roman', 15), bg='white',show="*")
         self.e2.place(x=90, y=240, width=350, height=35)
 
-        forget_btn = tk.Button(self.f1, text='New?Click for registration', command=self.for_register, bg='black',
+        register_btn = tk.Button(self.f1, text='New?Click for registration', command=self.for_register, bg='black',
                             fg='red', bd=0,
-                            font=('Impact', 12)).place(x=90, y=280)
-        Login_btn = tk.Button(self.root, text='Login',command=self.my_click, fg='white', bg='black',
-                           font=('Impact', 20, 'bold')).place(x=300, y=470, width=180, height=40)
+                            font=('Impact', 12)).place(x=90, y=290)
+        login_btn = tk.Button(self.f1, text='Login',command=self.my_click, fg='white', bg='black',
+                           font=('Impact', 20, 'bold')).place(x=90, y=320, width=180, height=40)
         self.root.mainloop()
 
 
