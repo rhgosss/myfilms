@@ -4,7 +4,7 @@ from PIL import ImageTk, Image
 
 root = Tk()
 root.title('Search bar')
-root.iconbitmap('')
+root.iconbitmap('') #rhgo vale thn eikonoula p m eixes deiksei 
 root.configure(bg='#3D3D3D')
 root.geometry("1199x600")
 
