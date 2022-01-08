@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import sqlite3 as sq
 from tkinter import messagebox
+from tkinter import ttk
 
 
 class Myapp:
@@ -35,7 +36,7 @@ class Myapp:
         self.my_Label = tk.Label(self.f1, text='Search for a film...', font=('Impact', 40), bg='#3D3D3D',
                                  fg='White').place(x=55, y=0)
 
-        
+
 
         self.my_entry = tk.Entry(self.f1, font=('consolas', 20), borderwidth=4, fg='white', bg='#2d2d2d')
         self.my_entry.place(x=100, y=160)
@@ -56,7 +57,8 @@ class Myapp:
 
     def search(self):
         self.f2 = tk.Frame(bg="#30475E")
-        self.f2.place(x=0, y=0, height=2000, width=2000)
+        self.f2.place(x=0,y=0, height=2000, width=2000)
+
 
 
         for widget in self.f2.winfo_children():
