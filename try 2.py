@@ -98,7 +98,7 @@ class Myapp():
                 self.l1 = tk.Label(self.f2, text=(self.r1["Director"]), font=('Calibri', 18, 'normal'), fg='white',
                                    bg='#30475E').place(x=340, y=150)
                 self.l2 = tk.Label(self.f2, text=(self.r1["Plot"]), font=('Calibri', 20, 'normal'), fg='white',
-                                   bg='#30475E').place(x=340, y=400)
+                                   bg='#30475E',wraplength=800).place(x=340, y=400)
                 self.l4 = tk.Label(self.f2, text=(self.r1["Actors"]), font=('Calibri', 18, 'normal'), fg='white',
                                    bg='#30475E').place(x=340, y=200)
                 self.l3 = tk.Label(self.f2, image=self.img, borderwidth=2).place(x=20, y=20)
