@@ -10,7 +10,6 @@ from tkinter import ttk
 class Myapp():
 
 
-
     def __init__(self, root, name):
 
         #self.bg = ImageTk.PhotoImage(file='wallpaper.jpg')
@@ -37,7 +36,6 @@ class Myapp():
         self.bt2.place(x=915, y=260)
 
 
-
     def Return(self):
 
         for widget in self.f2.winfo_children():
@@ -55,7 +53,6 @@ class Myapp():
 
         self.bt2 = tk.Button(self.f1, text="Search", font=('Impact', 20), bg="#2d2d2d", fg="white", command=self.search)
         self.bt2.place(x=200, y=300)
-
 
 #?tinauto 
     def for_search(self):
@@ -76,16 +73,13 @@ class Myapp():
         self.b2.grid()
 
 
-
     def search(self):
 
         self.title = self.my_entry.get()
 
-
         try:
             if self.title == "":
                 messagebox.showerror('Error', 'Please enter a film title!', parent=self.f1)
-
             else:
                 self.f2 = tk.Frame(bg="#3D3D3D")
                 self.f2.place(x=0, y=0, height=2000, width=2000)
@@ -100,7 +94,7 @@ class Myapp():
                 self.r1 = self.r1.json()
                 print(self.r1)
                 self.r2 = r.get(self.r1["Poster"])
-
+                
 #i eikona einai poli mikri , na mini stin idia thesi20x20 alla na ginei pio megali 
                 with open(str(self.title) + ".jpg", "wb") as f:
                     f.write(self.r2.content)
@@ -126,14 +120,13 @@ class Myapp():
                 self.img2 = tk.Button(self.f2, command=self.Return, image=self.b2, borderwidth=0, bg='#3D3D3D').place(x=1815, y=910)
 
                 self.b3 = tk.Button(self.f2,command=self.comments ,text="Comments" , font=('Impact', 20), fg='white', bg='#2d2d2d' , borderwidth=4 ).place(x= 940,y=920)
-
+                
         except KeyError:
             self.Return()
 
 # otan patas return apo tis favorite movies laggarei kai petaei dio search bar othones i mia pano stin alli 
-
-
     def favorite_movies(self):
+        
         self.f2 = tk.Frame(bg="#3D3D3D")
         self.f2.place(x=0, y=0, height=2000, width=2000)
         conn = sq.connect("members.db")
@@ -156,9 +149,9 @@ class Myapp():
         self.b2 = tk.Button(self.f2, text="Return", command=self.Return , font=('Impact', 20), borderwidth=4 ,bg='#3D3D3D' , fg ='white').place(x=958 , y=910 )
         self.b2.grid()
 
-
 #????geia (ti simenei auto )
     def overview(self, title=""):
+        
         print("geia", title)
         conn = sq.connect("members.db")
         c = conn.cursor()
@@ -196,10 +189,8 @@ class Myapp():
         conn.close()
 
     # select * FROM movies 1 WHERE like%
-
-
-
     def add(self):
+        
         conn = sq.connect("members.db")
         c = conn.cursor()
         c.execute("""CREATE TABLE  if not exists movies1 (
@@ -214,7 +205,6 @@ class Myapp():
         items = c.fetchall()
         lst = []
 
-
         for item in items:
             lst.append(item)
         if len(lst) > 0:
@@ -225,8 +215,8 @@ class Myapp():
             conn.close()
 
 
-
     def comments(self):
+        
         conn = sq.connect("members.db")
         c = conn.cursor()
         c.execute("""CREATE TABLE if not exists user_film_comments (
@@ -236,7 +226,6 @@ class Myapp():
                             )""")
         c.execute("SELECT * FROM user_film_comments WHERE movie_title = ?",(self.title,))
         items = c.fetchall()
-
 
         root = tk.Tk()
         root.title('Comments')
@@ -261,12 +250,11 @@ class Myapp():
         b = tk.Button(root, text="Post", command=self.show , font=('Impact',18) , borderwidth=4, bg='#2d2d2d', fg='white')
         b.pack()
 
-
         root.mainloop()
 
 
-
     def show(self):
+        
         conn = sq.connect("members.db")
         c = conn.cursor()
         c.execute("SELECT (username) FROM members ")
@@ -278,17 +266,16 @@ class Myapp():
 
 
 
-
-
 class Login():
 
 
     def __init__(self):
+        
         self.run()
 
 
-
     def my_click(self):
+        
         conn = sq.connect("members.db")
         c = conn.cursor()
         c.execute("SELECT * FROM members")
@@ -310,14 +297,13 @@ class Login():
 
                 self.root.mainloop()
 
-
             elif cnt == len(items):
                 messagebox.showerror('Error', 'Wrong username or password!', parent=self.root)
                 break
 
 
-
     def for_register(self):
+        
         for widget in self.f1.winfo_children():
             widget.destroy()
 
@@ -338,8 +324,8 @@ class Login():
         self.b1 = tk.Button(self.f1, text='Back', command=self.back, fg='white', bg='#3D3D3D',font=('Impact', 20, 'normal')).place(x=351, y=320, width=90, height=40)
 
 #an den valeis username k password, patisis register kai meta ksanapas me back sto logininterface kai pathseis login xoris na valeis username k kodiko , to programma trexei xoris na prp
-
     def register(self):
+        
         self.name = self.entry.get()
         conn = sq.connect("members.db")
         c = conn.cursor()
@@ -357,12 +343,11 @@ class Login():
             self.f1.destroy()
             my_app = Myapp(self.root, self.name)
 
-
             self.root.mainloop()
 
 
-
     def back(self):
+        
         for widget in self.f1.winfo_children():
             widget.destroy()
 
@@ -384,8 +369,8 @@ class Login():
         login_btn = tk.Button(self.f1, text='Login', command=self.my_click, fg='white', bg='#3D3D3D',font=('Impact', 20, 'bold')).place(x=90, y=320, width=180, height=40)
 
 
-
     def run(self):
+        
         conn = sq.connect("members.db")
         c = conn.cursor()
 
@@ -396,7 +381,6 @@ class Login():
             )""")
         conn.commit()
         conn.close
-
 
         self.root = tk.Tk()
         self.root.title('MyFILMS')
@@ -425,9 +409,7 @@ class Login():
 
         login_btn = tk.Button(self.f1, text='Login', command=self.my_click, fg='white', bg='#3D3D3D',font=('Impact', 20, 'bold')).place(x=90, y=320, width=180, height=40)
 
-
         self.root.mainloop()
-
 
 
 
