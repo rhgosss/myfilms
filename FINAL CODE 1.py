@@ -65,7 +65,7 @@ class Myapp():
             else:
                 self.f2 = tk.Frame(bg="#3D3D3D")
                 self.f2.place(x=0, y=0, height=2000, width=2000)
-                
+
                 for widget in self.f2.winfo_children():
                     widget.destroy()
 
@@ -225,10 +225,13 @@ class Myapp():
         items = c.fetchall()
 
         root = tk.Tk()
+        root.geometry("500x380")
+        root.resizable(0,0)
+
         root.title('Comments')
         root.iconbitmap('')
         root.configure(bg='#3D3D3D')
-        root.geometry('1200x600')
+
 
         my_scrollbar = tk.Scrollbar(root)
         my_scrollbar.pack(side=tk.RIGHT, fill="y")
@@ -258,7 +261,7 @@ class Myapp():
             c = conn.cursor()
             c.execute("SELECT (username) FROM members ")
             textitems = self.entr.get()
-            self.txtbox.insert(tk.END, self.name + " said:" + "\n" + textitems)
+            self.txtbox.insert(tk.END, "\n" + self.name + " said:" + "\n" + textitems)
             c.execute("INSERT INTO user_film_comments (username,comments,movie_title) VALUES (?,?,?)",
                       (self.name, textitems, self.title))
             conn.commit()
