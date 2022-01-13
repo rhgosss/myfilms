@@ -25,12 +25,14 @@ class Myapp():
         self.name = name
         print(self.name)
         # Aspro koutaki giro apo ayta(giati)!
-        self.favorite_btn = tk.PhotoImage(file="FINAL FAVORITES.png")
-        self.img_kardoula = tk.Button(root, command=self.favorite_movies, image=self.favorite_btn, borderwidth=5).place(
+        self.favorite_btn = ImageTk.PhotoImage(file='FINAL FAVORITES.png')
+        self.img_kardoula = tk.Button(self.f1, command=self.favorite_movies, image=self.favorite_btn, borderwidth=0, bg='#3D3D3D',
+                                      fg='#3D3D3D').place(
             x=19, y=600)
         # quit den leitpyrgei
-        self.x_btn = tk.PhotoImage(file='FINAL X.png')
-        self.img_x = tk.Button(root, command=self.quit, image=self.x_btn, borderwidth=0).place(x=1000, y=600)
+        self.x_btn = ImageTk.PhotoImage(file='FINAL X.png')
+        self.img_x = tk.Button(self.f1, command=self.quit, image=self.x_btn, borderwidth=0,bg='#3D3D3D',
+                                      fg='#3D3D3D').place(x=1000, y=600)
 
         self.my_entry = tk.Entry(self.f1, font=('Calibri', 20), borderwidth=4, fg='white', bg='#2d2d2d')
         self.my_entry.place(x=820, y=155)
@@ -404,8 +406,7 @@ class Login():
 
         c.execute("""CREATE TABLE if not exists members (
             username DATATYPE text,
-            password DATATYPE text,
-            comment DATATYPE text
+            password DATATYPE text
             )""")
         conn.commit()
         conn.close
