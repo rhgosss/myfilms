@@ -127,7 +127,7 @@ class Myapp():
 
         for item in items:
             titles.append(item[0])
-            self.list1.append(tk.Button(self.f2, text=str(item[0]), command=lambda m=item[0]: self.overview(m)),font=('Calibri',20), fg='white' , bg='#2d2d2d' , borderwidth=5)
+            self.list1.append(tk.Button(self.f2, text=str(item[0]), command=lambda m=item[0]: self.overview(m),font=('Calibri',20), fg='white' , bg='#2d2d2d' , borderwidth=5))
             self.list1[cnt].grid()
 
             cnt += 1
