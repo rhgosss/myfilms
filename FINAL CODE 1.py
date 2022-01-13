@@ -127,7 +127,7 @@ class Myapp():
 
         for item in items:
             titles.append(item[0])
-            self.list1.append(tk.Button(self.f2, text=str(item[0]), command=lambda m=item[0]: self.overview(m)))
+            self.list1.append(tk.Button(self.f2, text=str(item[0]), command=lambda m=item[0]: self.overview(m)),font=('Calibri',20), fg='white' , bg='#2d2d2d' , borderwidth=5)
             self.list1[cnt].grid()
 
             cnt += 1
@@ -245,7 +245,7 @@ class Myapp():
         for item in items:
             self.txtbox.insert(tk.END, item[0] + " said:" + "\n" + item[1] + "\n")
         # episis emfanizete ena akiro koutaki enter text to opoio den kanei tpt , prp na aferethei
-        self.entr = tk.Entry(root)
+        self.entr = tk.Entry(root, font=('Calibri',15) ,bg='#3D3D3D', fg='white' )
         self.entr.pack()
 
         b = tk.Button(root, text="Post", command=self.show, font=('Impact', 18), borderwidth=4, bg='#2d2d2d',
