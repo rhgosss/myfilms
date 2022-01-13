@@ -53,22 +53,7 @@ class Myapp():
 
 
     # ?tinauto
-    def for_search(self):
 
-        self.f2 = tk.Frame()
-        self.f2.grid()
-
-        for widget in self.f1.winfo_children():
-            widget.destroy()
-
-        self.e = tk.Entry(self.f1, font=("Calibri", 20))
-        self.e.grid()
-
-        self.b = tk.Button(self.f1, text="Search", font=('Impact', 20, 'white'), command=self.search)
-        self.b.grid()
-
-        self.b2 = tk.Button(self.f1, text="Return", font=('Impact', 20, 'white'), fg='#3D3D3D', command=self.Return)
-        self.b2.grid()
 
     def search(self):
 
@@ -80,9 +65,7 @@ class Myapp():
             else:
                 self.f2 = tk.Frame(bg="#3D3D3D")
                 self.f2.place(x=0, y=0, height=2000, width=2000)
-                for widget in self.f1.winfo_children():
-                    widget.destroy()
-                self.f1.destroy()
+                
                 for widget in self.f2.winfo_children():
                     widget.destroy()
 
@@ -121,7 +104,7 @@ class Myapp():
 
                 self.b2 = ImageTk.PhotoImage(file='FINAL X.png')
                 self.img2 = tk.Button(self.f2, command=self.Return, image=self.b2, borderwidth=0, bg='#3D3D3D').place(
-                    x=1815, y=910)
+                    x=100, y=660)
 
                 self.b3 = tk.Button(self.f2, command=self.comments, text="Comments", font=('Impact', 20), fg='white',
                                     bg='#2d2d2d', borderwidth=4).place(x=940, y=100)
