@@ -3,7 +3,6 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import sqlite3 as sq
 from tkinter import messagebox
-from tkinter import ttk
 
 
 class Myapp():
@@ -18,7 +17,7 @@ class Myapp():
                                  fg='White').place(x=510, y=40)
 
         self.name = name
-        print(self.name)
+
         self.favorite_btn = ImageTk.PhotoImage(file='FINAL FAVORITES.png')
         self.img_kardoula = tk.Button(self.f1, command=self.favorite_movies, image=self.favorite_btn, borderwidth=0,
                                       bg='#3D3D3D',
@@ -45,6 +44,9 @@ class Myapp():
 
         self.f2.destroy()
 
+    def Return2(self):
+        self.f3.destroy()
+
     def search(self):
 
         self.title = self.my_entry.get()
@@ -62,13 +64,12 @@ class Myapp():
                 url = f"http://www.omdbapi.com/?t={self.title}&apikey=2692ec2"
                 self.r1 = r.get(url)
                 self.r1 = self.r1.json()
-                print(self.r1)
+
                 self.r2 = r.get(self.r1["Poster"])
 
                 with open(str(self.title) + ".jpg", "wb") as f:
                     f.write(self.r2.content)
                 self.img = ImageTk.PhotoImage(Image.open(str(self.title) + ".jpg"))
-                print(self.img)
 
                 self.lo = tk.Label(self.f2, text=(self.r1["Title"]), font=('Impact', 60, 'bold'), fg='white',
                                    bg='#3D3D3D').place(x=340, y=10)
@@ -116,8 +117,8 @@ class Myapp():
 
     def favorite_movies(self):
 
-        self.f2 = tk.Frame(bg="#3D3D3D")
-        self.f2.place(x=0, y=0, height=2000, width=2000)
+        self.f3 = tk.Frame(bg="#3D3D3D")
+        self.f3.place(x=0, y=0, height=2000, width=2000)
         conn = sq.connect("members.db")
         c = conn.cursor()
         c.execute("SELECT * FROM movies1")
@@ -131,7 +132,7 @@ class Myapp():
         for item in items:
             titles.append(item[0])
             self.list1.append(
-                tk.Button(self.f2, text=str(item[0]), command=lambda m=item[0]: self.overview(m), font=('Calibri', 20),
+                tk.Button(self.f3, text=str(item[0]), command=lambda m=item[0]: self.overview(m), font=('Calibri', 20),
                           fg='white', bg='#2d2d2d', borderwidth=5), )
             self.list1[cnt3].grid(row=cnt2, column=cnt, sticky='nesw')
             cnt += 1
@@ -141,11 +142,10 @@ class Myapp():
                 cnt = 0
         conn.commit()
         conn.close()
-        self.b2 = tk.Button(self.f2, text="Return", command=self.Return, font=('Impact', 20), borderwidth=4,
+        self.b2 = tk.Button(self.f3, text="Return", command=self.Return2, font=('Impact', 20), borderwidth=4,
                             bg='#3D3D3D', fg='white').place(x=1300, y=660)
 
     def overview(self, title=""):
-        print("geia", title)
         conn = sq.connect("members.db")
         c = conn.cursor()
         c.execute("SELECT * FROM movies1 WHERE movie_title =? ", (title,))
@@ -153,45 +153,44 @@ class Myapp():
         info = []
         for item in items:
             info.append(item)
-            print(info)
-        for widget in self.f2.winfo_children():
+        for widget in self.f3.winfo_children():
             widget.destroy()
+
         self.img10 = ImageTk.PhotoImage(Image.open(str(title) + ".jpg"))
-        print(self.img10)
 
-        self.l10 = tk.Label(self.f2, image=self.img10).place(x=20, y=20)
+        self.l10 = tk.Label(self.f3, image=self.img10).place(x=20, y=20)
 
-        self.lo = tk.Label(self.f2, text=(info[0]), font=('Impact', 55, 'bold'), fg='white', bg='#3D3D3D').place(x=340,
+        self.lo = tk.Label(self.f3, text=(info[0]), font=('Impact', 55, 'bold'), fg='white', bg='#3D3D3D').place(x=340,
                                                                                                                  y=10)
-        self.l = tk.Label(self.f2, text=("Year: " + info[1]), font=('Calibri', 18, 'normal'), fg='white',
+        self.l = tk.Label(self.f3, text=("Year: " + info[1]), font=('Calibri', 18, 'normal'), fg='white',
                           bg='#3D3D3D').place(
             x=340, y=250)
-        self.l1 = tk.Label(self.f2, text=("Director: " + info[2]), font=('Calibri', 18, 'normal'), fg='white',
+        self.l1 = tk.Label(self.f3, text=("Director: " + info[2]), font=('Calibri', 18, 'normal'), fg='white',
                            bg='#3D3D3D').place(
             x=340, y=150)
-        self.l2 = tk.Label(self.f2, text=("Plot: " + info[3]), font=('Calibri', 20, 'normal'), fg='white', bg='#3D3D3D',
+        self.l2 = tk.Label(self.f3, text=("Plot: " + info[3]), font=('Calibri', 20, 'normal'), fg='white', bg='#3D3D3D',
                            wraplength=800).place(x=340, y=300)
-        self.l4 = tk.Label(self.f2, text=("Actors: " + info[4]), font=('Calibri', 18, 'normal'), fg='white',
+        self.l4 = tk.Label(self.f3, text=("Actors: " + info[4]), font=('Calibri', 18, 'normal'), fg='white',
                            bg='#3D3D3D').place(
             x=340, y=200)
-        self.lr = tk.Label(self.f2, text=("Rating: " + str(info[5])),
+        self.lr = tk.Label(self.f3, text=("Rating: " + str(info[5])),
                            font=('Calibri', 18, 'normal'), fg='white',
                            bg='#3D3D3D').place(x=340, y=440)
         self.b1 = ImageTk.PhotoImage(file='FINAL FAVORITES.png')
-        self.img1 = tk.Button(self.f2, command=self.add, image=self.b1, borderwidth=0, bg='#3D3D3D',
+        self.img1 = tk.Button(self.f3, command=self.add, image=self.b1, borderwidth=0, bg='#3D3D3D',
                               fg='#3D3D3D').place(x=19, y=910)
         self.b2 = ImageTk.PhotoImage(file='FINAL X.png')
-        self.img2 = tk.Button(self.f2, command=self.Return, image=self.b2, borderwidth=0, bg='#3D3D3D').place(x=1815,
-                                                                                                              y=910)
-        self.b3 = tk.Button(self.f2, command=self.comments, text="Comments", font=('Impact', 20), fg='white',
+        self.img2 = tk.Button(self.f3, command=self.back, image=self.b2, borderwidth=0, bg='#3D3D3D').place(x=940,
+                                                                                                            y=550)
+        self.title = title
+        self.b3 = tk.Button(self.f3, command=self.comments, text="Comments", font=('Impact', 20), fg='white',
                             bg='#2d2d2d', borderwidth=4).place(x=180, y=550)
-        self.back = tk.Button(self.f2, command=self.back, text="Back", font=('Impact', 20), fg='white',
-                              bg='#2d2d2d', borderwidth=4).place(x=940, y=550)
+
         conn.commit()
         conn.close()
 
     def back(self):
-        self.f2.destroy()
+        self.f3.destroy()
         self.favorite_movies()
 
     def add(self):
@@ -207,7 +206,7 @@ class Myapp():
             movie_ratings DATATYPE text,
             poster DATATYPE blob
             )""")
-        c.execute("SELECT * FROM movies1 WHERE movie_title =? ", (self.title,))
+        c.execute("SELECT * FROM movies1 WHERE movie_title =? ", (self.r1['Title'],))
         items = c.fetchall()
         lst = []
 
@@ -217,7 +216,7 @@ class Myapp():
             messagebox.showerror('Error', 'Film already listed at favorites!', parent=self.f2)
         else:
             c.execute("INSERT INTO movies1 VALUES (?,?,?,?,?,?,?)", (
-                self.title, self.r1['Year'], self.r1['Director'], self.r1['Plot'], self.r1['Actors'],self.rate,
+                self.r1['Title'], self.r1['Year'], self.r1['Director'], self.r1['Plot'], self.r1['Actors'], self.rate,
                 self.r1['Poster']))
             conn.commit()
             conn.close()
@@ -248,7 +247,8 @@ class Myapp():
             self.txtbox.insert(tk.END, item[0] + " said:" + "\n" + item[1] + "\n")
         self.entr = tk.Entry(root)
         self.entr.pack()
-        b = tk.Button(root, text="Post", command=self.show, font=('Impact', 18), borderwidth=4, bg='#2d2d2d', fg='white')
+        b = tk.Button(root, text="Post", command=self.show, font=('Impact', 18), borderwidth=4, bg='#2d2d2d',
+                      fg='white')
         b.pack()
         root.mainloop()
 
@@ -279,11 +279,11 @@ class Login():
         c = conn.cursor()
         c.execute("SELECT * FROM members")  # επιλογη ολων των αντικειμενων απο πινακα members
         items = c.fetchall()
-        print(items)
+
         self.name = self.e1.get()
         cnt = 0
         for item in items:
-            print(item)
+
             cnt += 1
             if str(self.e1.get()) == item[0] and str(self.e2.get()) == item[1]:  # ελεγχος username και password
 
@@ -398,16 +398,22 @@ class Login():
         self.bg_image = tk.Label(self.root, image=self.bg).place(x=0, y=0, relwidth=1, relheight=1)
         self.f1 = tk.Frame(self.root, bg='#111111')
         self.f1.place(x=150, y=150, height=398, width=508)
-        title = tk.Label(self.f1, text='Login to MyFILMS', font=('Impact', 35, 'bold'), fg='white', bg='#111111').place(x=90, y=30)
-        desc = tk.Label(self.f1, text='Users login area...', font=('Impact', 15, 'normal'), fg='white',bg='#111111').place(x=90, y=100)
-        lbl_user = tk.Label(self.f1, text='Username', font=('Impact', 15, 'normal'), fg='white', bg='#111111').place(x=90, y=140)
+        title = tk.Label(self.f1, text='Login to MyFILMS', font=('Impact', 35, 'bold'), fg='white', bg='#111111').place(
+            x=90, y=30)
+        desc = tk.Label(self.f1, text='Users login area...', font=('Impact', 15, 'normal'), fg='white',
+                        bg='#111111').place(x=90, y=100)
+        lbl_user = tk.Label(self.f1, text='Username', font=('Impact', 15, 'normal'), fg='white', bg='#111111').place(
+            x=90, y=140)
         self.e1 = tk.Entry(self.f1, font=('Calibri', 15), bg='white')
         self.e1.place(x=90, y=170, width=350, height=35)
-        lbl_pass = tk.Label(self.f1, text='Password', font=('Impact', 15, 'normal'), fg='white', bg='#111111').place(x=90, y=210)
+        lbl_pass = tk.Label(self.f1, text='Password', font=('Impact', 15, 'normal'), fg='white', bg='#111111').place(
+            x=90, y=210)
         self.e2 = tk.Entry(self.f1, font=('Calibri', 15), bg='white', show="*")
         self.e2.place(x=90, y=240, width=350, height=35)
-        register_btn = tk.Button(self.f1, text='New?Sing up', command=self.for_register, bg='#111111',fg='red', bd=0, font=('Impact', 12)).place(x=90, y=290)
-        login_btn = tk.Button(self.f1, text='Login', command=self.my_click, fg='white', bg='#3D3D3D',font=('Impact', 20, 'bold')).place(x=90, y=320, width=180, height=40)
+        register_btn = tk.Button(self.f1, text='New?Sing up', command=self.for_register, bg='#111111', fg='red', bd=0,
+                                 font=('Impact', 12)).place(x=90, y=290)
+        login_btn = tk.Button(self.f1, text='Login', command=self.my_click, fg='white', bg='#3D3D3D',
+                              font=('Impact', 20, 'bold')).place(x=90, y=320, width=180, height=40)
         self.root.bind('<Return>', lambda event: self.my_click())
         self.root.mainloop()
 
